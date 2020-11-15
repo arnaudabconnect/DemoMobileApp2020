@@ -34,7 +34,7 @@ const HeartIcon = (props) => (
   <Icon {...props} name='heart'/>
 );
 
-function AppTructure(){
+function AppStructure(){
   const {theme, toggleTheme} = React.useContext(ThemeContext);
   return (
     <>
@@ -49,7 +49,7 @@ function AppTructure(){
 export default function App(){
   return (
     <ThemeContextProvider >
-      <AppTructure />
+      <AppStructure />
     </ThemeContextProvider>
   )
 }
