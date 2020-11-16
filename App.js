@@ -23,8 +23,9 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import * as eva from '@eva-design/eva';
 // import { default as theme } from './theme.json'; 
-import Routes from './Routes';
+import Router from './Router';
 import { ThemeContextProvider, ThemeContext } from './ThemeContext';
+import { AppContextProvider } from './AppContext';
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
@@ -40,7 +41,7 @@ function AppStructure(){
     <>
     <IconRegistry icons={EvaIconsPack}/>
     <ApplicationProvider {...eva} theme={ eva[theme] }>
-      <Routes/>
+      <Router/>
     </ApplicationProvider>
   </>
 );
@@ -49,7 +50,9 @@ function AppStructure(){
 export default function App(){
   return (
     <ThemeContextProvider >
-      <AppStructure />
+      <AppContextProvider>
+        <AppStructure />
+      </AppContextProvider>
     </ThemeContextProvider>
   )
 }
