@@ -1,15 +1,28 @@
 import React from 'react';
-import { ImageStyle } from 'react-native';
+import { ImageStyle, StyleSheet } from 'react-native';
 import { Icon, IconElement } from '@ui-kitten/components';
 
-export const EyeIcon = (style) => (
-  <Icon {...style} name='eye'/>
-);
+export const EyeIcon = ({action}) => {
+    return (
+    <Icon fill='#8F9BB3'style={styles.icon} name='eye-outline' onPress={action} />
+    );
+  }
 
-export const EyeOffIcon = (style) => (
-  <Icon {...style} name='eye-off'/>
-);
+export const EyeOffIcon = ({action}) => {
+    return (
+    <Icon fill='#8F9BB3'style={styles.icon} name='eye-off' onPress={action} />
+    );
+  }
 
-export const PersonIcon = (style) => (
-  <Icon {...style} name='person'/>
-);
+export const PersonIcon = ({action}) => {
+    return (
+    <Icon fill='#8F9BB3'style={styles.icon} name='person' onPress={action} />
+    );
+  }
+
+const styles = StyleSheet.create({
+    icon : {
+      width: 24,
+      height: 24,
+    }
+});

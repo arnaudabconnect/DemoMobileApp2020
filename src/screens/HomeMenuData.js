@@ -1,33 +1,19 @@
 export const menuItems  = [
     {
-        title: 'first',
+        title: 'Details',
         screen: 'Details',
         icon: 'star'
     },
     {
-        title: 'second',
+        title: 'News',
         screen: 'News',
         icon: 'star'
     },
     {
-        title: 'third',
-        screen: 'Details',
+        title: 'Login',
+        screen: 'LoginScreens',
         icon: 'star'
     },
-    {
-        title: 'fourth',
-        screen: 'Details',
-        icon: 'star'
-    },
-    {
-        title: 'fifth',
-        screen: 'Details',
-        icon: 'star'
-    },
-    {
-        title: 'sixth',
-        screen: 'Details',
-        icon: 'star'
-    },
+ 
     
 ]

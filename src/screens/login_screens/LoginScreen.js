@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View } from 'react-native';
-import { Button, Input, Layout, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
+import { Button, Icon, Input, Layout, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import { EyeIcon, EyeOffIcon, PersonIcon } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
 
@@ -14,7 +14,7 @@ export const LoginScreen = ({ navigation }) => {
   const styles = useStyleSheet(themedStyles);
 
   const onSignUpButtonPress = () => {
-    navigation && navigation.navigate('SignUp2');
+    navigation && navigation.navigate('Register');
   };
 
   const onForgotPasswordButtonPress = () => {
@@ -45,14 +45,14 @@ export const LoginScreen = ({ navigation }) => {
         level='1'>
         <Input
           placeholder='Email'
-          icon={PersonIcon}
+          accessoryRight={PersonIcon}
           value={email}
           onChangeText={setEmail}
         />
         <Input
           style={styles.passwordInput}
           placeholder='Password'
-          icon={passwordVisible ? EyeIcon : EyeOffIcon}
+          accessoryRight={passwordVisible ? () => <EyeIcon action={onPasswordIconPress} /> : () => <EyeOffIcon action={onPasswordIconPress} />}
           value={password}
           secureTextEntry={!passwordVisible}
           onChangeText={setPassword}

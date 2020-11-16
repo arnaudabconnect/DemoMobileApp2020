@@ -57,7 +57,6 @@ export const HomeScreen = ({ navigation }) => {
             alignItems:'center'
           }}
         />
-
       </Layout>
       </Layout>
     </SafeAreaView>

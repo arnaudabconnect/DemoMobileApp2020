@@ -4,6 +4,7 @@ import { HomeScreen } from '../src/screens/HomeScreen';
 import { DetailsScreen } from '../src/screens/DetailsScreen';
 import { NewsScreen } from '../src/screens/NewsScreen';
 import { SingleNews } from '../src/screens/SingleNews';
+import LoginNavigator from './LoginNavigator';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -13,6 +14,7 @@ const HomeNavigator = () => (
     <Screen name='Details' component={DetailsScreen}/>
     <Screen name='News' component={NewsScreen}/>
     <Screen name='SingleNews' component={SingleNews}/>
+    <Screen name='LoginScreens' component={LoginNavigator} />
   </Navigator>
 );
 

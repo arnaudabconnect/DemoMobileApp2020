@@ -9,9 +9,7 @@ const Routes = () => {
   const {user} = React.useContext(AppContext);
   return (
     <NavigationContainer>
-      {
-        user ? <HomeNavigator/> : <LoginNavigator/>
-      }
+       <HomeNavigator/>
     </NavigationContainer>
   )
   };
