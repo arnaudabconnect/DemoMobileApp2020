@@ -3,19 +3,22 @@ import { SafeAreaView, StyleSheet, View, Dimensions } from 'react-native';
 import { Button, Card, Divider, Layout, TopNavigation, Text, Icon, List, Menu } from '@ui-kitten/components';
 import { ThemeContext } from '../../ThemeContext';
 import { Image } from 'react-native-svg';
-import {menuItems} from './HomeMenuData';
+import {menuItems, menuItemsUser} from './HomeMenuData';
+import { AppContext } from '../../AppContext';
 
 export const HomeScreen = ({ navigation }) => {
 
   const {toggleTheme } = React.useContext(ThemeContext);
+  const {user} = React.useContext(AppContext)
   const navigateDetails = () => {
     navigation.navigate('Details');
   };
 
   const MenuItem = ({item}) => {
+    if(item.navigator) {
     return(
       <Card style={styles.card} 
-      onPress={ () => navigation.navigate(item.screen) }>
+      onPress={ () => navigation.navigate(item.navigator, {screen: item.screen}) }>
       <Icon
        style={styles.icon}
        fill='#8F9BB3'
@@ -33,6 +36,26 @@ export const HomeScreen = ({ navigation }) => {
     </Card>
     )
   }
+  return(
+    <Card style={styles.card} 
+    onPress={ () => navigation.navigate(item.screen) }>
+    <Icon
+     style={styles.icon}
+     fill='#8F9BB3'
+     name={item.icon}
+     style={{
+      width: 32,
+      height: 32,
+    }}
+     />
+    <Text
+      style={styles.itemTitle}
+      category='s2'>
+      {item.title}
+    </Text>
+  </Card>
+  )
+  }
 
 
   return (
@@ -45,7 +68,7 @@ export const HomeScreen = ({ navigation }) => {
         <Button onPress={toggleTheme}>Change de theme ! </Button>     
       <Layout  style={styles.container}>
         <List
-           data={menuItems}
+           data={ user ? menuItemsUser : menuItems}
            renderItem={MenuItem}
            keyExtractor={item => item.title}
            numColumns={2}

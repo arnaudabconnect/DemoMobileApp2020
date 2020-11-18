@@ -1,17 +1,21 @@
 
 import React from 'react';
 import { View } from 'react-native';
-import { Button, Icon, Input, Layout, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
+import { Button, Icon, Input, Layout, Spinner, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import { EyeIcon, EyeOffIcon, PersonIcon } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
+import { AppContext } from '../../../AppContext';
+import LoadingScreen from '../LoadingScreen';
 
 export const LoginScreen = ({ navigation }) => {
 
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-
+  const {login, loading, error} = React.useContext(AppContext);
   const styles = useStyleSheet(themedStyles);
+
+  
 
   const onSignUpButtonPress = () => {
     navigation && navigation.navigate('Register');
@@ -27,6 +31,9 @@ export const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
+      {
+      loading ? <LoadingScreen message="Connexion ..." /> :  (
+        <>
       <View style={styles.headerContainer}>
         <Text
           category='h1'
@@ -43,6 +50,9 @@ export const LoginScreen = ({ navigation }) => {
       <Layout
         style={styles.formContainer}
         level='1'>
+          {
+            error ? <Text category='s1' style={{color: 'red', textAlign:'center', marginBottom: 15}}> Informations de connexion invalide ? </Text> : null
+          }
         <Input
           placeholder='Email'
           accessoryRight={PersonIcon}
@@ -70,7 +80,9 @@ export const LoginScreen = ({ navigation }) => {
       </Layout>
       <Button
         style={styles.signInButton}
-        size='giant'>
+        size='giant'
+        onPress={() =>  login(email,password)}
+        >
         SIGN IN
       </Button>
       <Button
@@ -80,6 +92,9 @@ export const LoginScreen = ({ navigation }) => {
         onPress={onSignUpButtonPress}>
         Don't have an account? Create
       </Button>
+      </>
+      )
+    }
     </KeyboardAvoidingView>
   );
 };
