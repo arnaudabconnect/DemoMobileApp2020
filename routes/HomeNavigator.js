@@ -8,6 +8,7 @@ import LoginNavigator from './LoginNavigator';
 import { AppContext } from '../AppContext';
 import LogoutScreen from '../src/screens/login_screens/LogoutScreen';
 import UserNavigator from './UserNavigator';
+import { SingleEvent } from '../src/screens/SingleEvent';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -19,6 +20,7 @@ const HomeNavigator = () => {
     <Screen name='Events' component={EventsScreen}/>
     <Screen name='News' component={NewsScreen}/>
     <Screen name='SingleNews' component={SingleNews}/>
+    <Screen name='SingleEvent' component={SingleEvent}/>
     {
       user ? 
         <Screen name='UserNavigator' component={UserNavigator} /> :

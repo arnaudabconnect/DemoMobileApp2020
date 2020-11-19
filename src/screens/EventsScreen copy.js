@@ -11,12 +11,15 @@ export const EventsScreen = ({ navigation }) => {
   const [events, setEvents] = React.useState([]);
   const [loading, setLoading] = React.useState(true)
   const [refreshing, setRefreshing] = React.useState(false);
-  const [nextPageUrl, setNextPageUrl] = React.useState(null);
- 
+  const [pageCount, setPageCount] = React.useState(1);
+  const [lastPage, setLastPage] = React.useState(null);
+  React.useEffect( () => {
+    console.log(events)
+  }, [events] )
   React.useEffect(() => {
     APIKit.get('/api/events').then( response => {
       setEvents(response.data.data);
-      setNextPageUrl(response.data.next_page_url);
+      setLastPage(response.data.last_page);
       setLoading(false);
     } ).catch(error => {
       console.log(error.response);
@@ -29,17 +32,19 @@ export const EventsScreen = ({ navigation }) => {
   const onRefresh = () => {
     APIKit.get('/api/events').then( response => {
       setEvents(response.data.data);
-      setNextPageUrl(response.data.next_page_url);
+      setLastPage(response.data.last_page);
+      setPageCount(1);
     } ).catch(error => {
       console.log(error.response);
     })
   }
 
   const onEndReached = () => {
-    if(nextPageUrl){
-    APIKit.get(nextPageUrl).then( response => {
+    const nextPage = pageCount+1;
+    if( nextPage <= lastPage ){
+    APIKit.get('/api/events?page='+nextPage).then( response => {
       setEvents([...events, ...response.data.data]);
-      setNextPageUrl(response.data.next_page_url);
+      setPageCount(nextPage);
     } ).catch(error => {
       console.log(error.response);
     })
@@ -56,9 +61,6 @@ export const EventsScreen = ({ navigation }) => {
       }} 
         header={() => <Text style={{padding:20}}  category='h6'> {item.title} </Text>}
       >
-      <Text>
-          prévu le : {item.date}
-      </Text>
       <Text>
           {item.description}
       </Text>
