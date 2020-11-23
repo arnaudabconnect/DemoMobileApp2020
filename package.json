@@ -10,6 +10,8 @@
     "lint": "eslint . --ext .js,.jsx"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.10.6",
+    "@date-io/luxon": "^2.10.6",
     "@eva-design/eva": "2.0.0",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
@@ -18,9 +20,12 @@
     "@ui-kitten/components": "5.0.0",
     "@ui-kitten/eva-icons": "^5.0.0",
     "axios": "^0.21.0",
+    "date-fns": "^2.0.0-beta.5",
+    "luxon": "^1.25.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-image-picker": "^2.3.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.9",

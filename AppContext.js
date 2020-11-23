@@ -34,8 +34,8 @@ export const AppContextProvider = ({ children }) => {
   const login =  (email, password) => {
     setLoading(true);
     APIKit.post('/api/login', {
-      email : "hichem@test.com",
-      password : "123456",
+      email,
+      password,
       device_name: 'android'
     }).then( response => {
       console.log(response.data)

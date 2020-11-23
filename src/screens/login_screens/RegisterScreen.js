@@ -1,6 +1,6 @@
   
 import React from 'react';
-import { View } from 'react-native';
+import { View , Image} from 'react-native';
 import {
   Button,
   CheckBox,
@@ -14,19 +14,79 @@ import { ProfileAvatar } from './extra/profile-avatar.component';
 import { EmailIcon,PersonIcon, PlusIcon } from './extra/registerIcons';
 import {  EyeIcon, EyeOffIcon } from './extra/icons';
 import { KeyboardAvoidingView } from './extra/3rd-party';
+import ImagePicker from 'react-native-image-picker/src';
+import APIKit from '../../../API';
+import Axios from 'axios';
+import { AppContext } from '../../../AppContext';
 
 export default ({ navigation }) => {
 
-  const [userName, setUserName] = React.useState();
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [firstName, setfirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-
+  const [avatar, setAvatar] =  React.useState(null);
+  const [avatar64, setAvatar64] =  React.useState(null);
+  const {login} = React.useContext(AppContext)
   const styles = useStyleSheet(themedStyles);
 
+  const handleChoosePhoto = () => {
+    const options = {
+      noData: true,
+    }
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.uri) {
+        setAvatar( response );
+        setAvatar64( response.base64 );
+      }
+    })
+  }
+  // const onSignUpButtonPressFetch = ()  => {
+  //   const body = {
+  //     firstName,
+  //     email,
+  //     password,
+  //   }
+  //   const data = createFormData(avatar, body);
+  //   fetch("http://192.168.1.59/api/register", {
+  //     method: "POST",
+  //     body: data
+  //   })
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       console.log("upload succes", response);
+  //       alert("Upload success!");
+  //     })
+  //     .catch(error => {
+  //       console.log("upload error", error);
+  //       alert("Upload failed!");
+  //     });
+  //   // navigation && navigation.goBack();
+  // };
+
   const onSignUpButtonPress = ()  => {
-    navigation && navigation.goBack();
+    const body = {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      password,
+      avatar: avatar64
+    }
+    //const data = createFormData(avatar, body);
+   //console.log(data["_parts"][0])
+    Axios.post("http://192.168.1.59/api/register",body)
+      .then(response => {
+        console.log("upload succes", response);
+        alert('all good');
+        login(email, password);
+      })
+      .catch(error => {
+        console.log(error)
+        alert('big fail')
+      });
+    // navigation && navigation.goBack();
   };
 
   const onSignInButtonPress = ()  => {
@@ -45,25 +105,65 @@ export default ({ navigation }) => {
     />
   );
 
+  const createFormData = (photo, body) => {
+    const data = new FormData();
+    data.append('file', {
+        name: "truc.jpg",
+        uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+    });
+
+    Object.keys(body).forEach(key => {
+        data.append(key, body[key]);
+    });
+
+    return data;
+};
+
+ 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <ProfileAvatar
-          style={styles.profileAvatar}
-          resizeMode='center'
-          source={require('./assets/image-person.png')}
-          editButton={renderEditAvatarButton}
-        />
-      </View>
+      
       <Layout
         style={styles.formContainer}
         level='1'>
+         <View style={{
+            display: 'flex',
+            justifyContent:'center',
+            alignContent: 'center',
+            alignItems:'center',
+            marginBottom:10
+         }}>
+         <Button 
+          onPress={handleChoosePhoto}
+          style={{marginBottom: 10}}
+          >
+            {avatar ? 'Changer l\'avatar' : "Ajouter un avatar"}
+          </Button>
+          
+          {
+            avatar &&
+              <Image
+              
+              source={{ uri:avatar.uri}}
+              style={{ width: 250, height: 250 }}
+             />
+          }
+         </View>
+
         <Input
           autoCapitalize='none'
-          placeholder='User Name'
+          placeholder='first Name'
           accessoryRight={PersonIcon}
-          value={userName}
-          onChangeText={setUserName}
+          value={firstName}
+          onChangeText={setfirstName}
+        />
+        <Input
+          autoCapitalize='none'
+          placeholder='last Name'
+          accessoryRight={PersonIcon}
+          value={lastName}
+          onChangeText={setLastName}
+          style={styles.emailInput}
         />
         <Input
           style={styles.emailInput}

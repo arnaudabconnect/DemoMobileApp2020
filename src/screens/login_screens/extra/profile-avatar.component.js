@@ -19,6 +19,8 @@ export const ProfileAvatar = (props) => {
       <Avatar
         style={[style, styles.avatar]}
         {...restProps}
+        size="medium"
+        shape="round"
       />
       {editButton && renderEditButtonElement()}
     </View>
