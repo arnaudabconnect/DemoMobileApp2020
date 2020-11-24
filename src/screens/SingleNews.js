@@ -44,5 +44,3 @@ export const SingleNews = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
-
-

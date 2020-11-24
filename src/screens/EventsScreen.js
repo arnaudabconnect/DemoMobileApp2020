@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, RefreshControl } from 'react-native';
+import { SafeAreaView, View, RefreshControl, Image } from 'react-native';
 import { Card, Divider, Icon, Layout, List, Spinner, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import APIKit from '../../API';
 
@@ -54,8 +54,23 @@ export const EventsScreen = ({ navigation }) => {
           marginVertical: 10,
           
       }} 
-        header={() => <Text style={{padding:20}}  category='h6'> {item.title} </Text>}
+        header={() => {
+          
+          return <View>
+          {
+            item.image.length > 0 &&
+              <Image
+              // source={{ uri:image.uri}}
+              source={{ uri: "data:image/png;base64,"+item.image[0].image}}
+              style={{ width: '100%', height: 250 }}
+             />
+          }   
+          <Text style={{padding:20}}  category='h6'> {item.title} </Text>
+          </View>
+        } 
+      }
       >
+        
       <Text>
           prévu le : {item.date}
       </Text>

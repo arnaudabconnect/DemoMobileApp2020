@@ -35,6 +35,7 @@ export default ({ navigation }) => {
   const handleChoosePhoto = () => {
     const options = {
       noData: true,
+      includeBase64:true,
     }
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {

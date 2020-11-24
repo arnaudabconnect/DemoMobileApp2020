@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Image, ScrollView } from 'react-native';
 import { 
     Card,
     Divider,
@@ -8,9 +8,8 @@ import {
     List,
     Text,
     TopNavigation,
-    TopNavigationAction
+    TopNavigationAction,
  } from '@ui-kitten/components';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const BackIcon = (props) => (
   <Icon {...props} name='arrow-back' />
@@ -28,6 +27,7 @@ export const SingleEvent = ({ navigation, route }) => {
       );
   return (
     <SafeAreaView style={{ flex: 1 }}>
+
       <TopNavigation title='MyApp' alignment='center' accessoryLeft={BackAction}/>
       <Divider/>
         
@@ -40,11 +40,29 @@ export const SingleEvent = ({ navigation, route }) => {
       <Text>
         prévu le {  item.date }
       </Text>
+       
       <Text>
         { item.description }
       </Text>
+       {
+            item.image.length > 0 &&
+            <ScrollView style={{height:'100%', width:'100%', marginVertical:30}}>
+            {
+            item.image.map(image => (
+              <Image
+              // source={{ uri:image.uri}}
+              source={{ uri: "data:image/png;base64,"+image.image}}
+              style={{ width: '100%', height: 250 , marginVertical:30}}
+             />
+            ))
+          }
+
+            </ScrollView>
+              
+          } 
       </Layout>
     </SafeAreaView>
+
   );
 };
 
