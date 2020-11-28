@@ -15,7 +15,7 @@ export const LoginScreen = ({ navigation }) => {
   const {login, loading, error} = React.useContext(AppContext);
   const styles = useStyleSheet(themedStyles);
 
-  
+
 
   const onSignUpButtonPress = () => {
     navigation && navigation.navigate('Register');
