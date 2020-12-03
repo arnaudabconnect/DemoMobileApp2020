@@ -65,10 +65,11 @@ export const CreateEventsScreen = ({ navigation }) => {
       .then(response => {
         console.log("upload succes", response);
         setLoading(false);
-        
+        alert("l'évènement a bien été ajouté !")
       })
       .catch(error => {
         const messages = [];
+        // l'objet d'erreur se trouve ici => error.response.data.errors
         Object.keys(error.response.data.errors).forEach( (key, index, err) => {
           console.log(key, "===>", error.response.data.errors[key] )
           messages.push(error.response.data.errors[key][0])

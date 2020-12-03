@@ -66,13 +66,13 @@ export const AppContextProvider = ({ children }) => {
     })
   }
   const logout = async () => {
-    
-    Axios.post('http://192.168.1.6/api/logout', {},{ headers: { Authorization: `Bearer ${userToken}`} }).then( response => {
-      setUser(null);
-      clearAll();
-      console.log(response.data);
-    }).catch( error => console.log(error.response) );
-  }
+      
+      Axios.post('http://192.168.1.59/api/logout', {},{ headers: { Authorization: `Bearer ${userToken}`} }).then( response => {
+        setUser(null);
+        clearAll();
+        console.log(response.data);
+      }).catch( error => console.log(error.response) );
+    }
 
   const getFcmToken = async () => {
   

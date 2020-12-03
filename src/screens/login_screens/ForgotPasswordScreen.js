@@ -21,7 +21,7 @@ export default ({ navigation }) => {
     }
     //const data = createFormData(avatar, body);
    //console.log(data["_parts"][0])
-    Axios.post("http://192.168.1.6/api/forgot-password",body)
+    Axios.post("http://192.168.1.59/api/forgot-password",body)
       .then(response => {
         console.log("password reset link sent to your email", response);
         setLoading(false);
