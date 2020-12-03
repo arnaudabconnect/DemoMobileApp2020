@@ -37,20 +37,7 @@ const HeartIcon = (props) => (
   <Icon {...props} name='heart'/>
 );
 
-const getFcmToken = async () => {
-  
-  const fcmToken = await messaging().getToken();
-  if (fcmToken) {
-   console.log(fcmToken);
-   AsyncStorage.setItem('FCM_token', fcmToken).then( () => console.log('fcm token saved !') )
-  } else {
-   console.log("Failed", "No token received");
-  }
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-  });
-  
-}
+
 
 function AppStructure(){
   const {theme, toggleTheme} = React.useContext(ThemeContext);
@@ -65,20 +52,7 @@ function AppStructure(){
 }
 
 export default function App(){
-  useEffect(() => {
-    AsyncStorage.getItem('FCM_token')
-    .then((fcmToken) => {
-      if(fcmToken){
-        console.log(fcmToken)
-      }else{
-        getFcmToken()
-      }
-    })
-    .catch( () => {
-      console.log('error')
-    })
-    
-  }, [])
+  
   return (
     <ThemeContextProvider >
       <AppContextProvider>

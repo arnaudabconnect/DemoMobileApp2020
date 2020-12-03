@@ -1,5 +1,5 @@
 import React from 'react';
-import { View , Image, SafeAreaView} from 'react-native';
+import { View , Image, SafeAreaView, Alert} from 'react-native';
 import {
   Button,
   CheckBox,
@@ -18,6 +18,7 @@ import ImagePicker from 'react-native-image-picker/src';
 import { AppContext } from '../../AppContext';
 import APIKit from '../../API';
 import { ScrollView } from 'react-native-gesture-handler';
+import LoadingScreen from './LoadingScreen';
 
 const BackIcon = (props) => (
   <Icon {...props} name='arrow-back' />
@@ -30,7 +31,9 @@ export const CreateEventsScreen = ({ navigation }) => {
   const [image, setImage] =  React.useState(null);
   const [image64, setImage64] =  React.useState(null);
   const [date, setDate] = React.useState(new Date());
-  const {login} = React.useContext(AppContext)
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  // const {login} = React.useContext(AppContext)
   const styles = useStyleSheet(themedStyles);
 
   const handleChoosePhoto = () => {
@@ -54,16 +57,24 @@ export const CreateEventsScreen = ({ navigation }) => {
       image: image64 ? image64 : null,
       date
     }
+
+    setLoading(true);
     //const data = createFormData(avatar, body);
    //console.log(data["_parts"][0])
     APIKit.post("/api/events",body)
       .then(response => {
         console.log("upload succes", response);
-        alert('event ajouté !');
+        setLoading(false);
+        
       })
       .catch(error => {
-        console.log(error)
-        alert('big fail')
+        const messages = [];
+        Object.keys(error.response.data.errors).forEach( (key, index, err) => {
+          console.log(key, "===>", error.response.data.errors[key] )
+          messages.push(error.response.data.errors[key][0])
+        });
+        setError(messages)
+        setLoading(false);
       });
     // navigation && navigation.goBack();
   };
@@ -77,13 +88,20 @@ export const CreateEventsScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1,}}>
-      <ScrollView  >
+      // <ScrollView style={{ flex: 1,backgrondColor:'red' }}  >
+    <SafeAreaView style={{ flex: 1}}>
       <TopNavigation title='Ajouter un Evènnement' alignment='center' accessoryLeft={BackAction}/>
       <Divider />
       <Layout
         style={styles.formContainer}
         level='1'>
+          {
+            loading ? <LoadingScreen message="Envoie en cours ..." />
+            :           
+      <ScrollView>
+        {
+            error ? <Text category='s1' style={{color: 'red', textAlign:'center', marginBottom: 15}}> { error.join(' \n ')} </Text> : null
+        }
       <Input
           autoCapitalize='none'
           placeholder='Titre'
@@ -136,9 +154,11 @@ export const CreateEventsScreen = ({ navigation }) => {
         onPress={onCreateEventPress}>
         Ajouter L'évènnement
       </Button>
-      </Layout>
       </ScrollView>
+}
+      </Layout>
     </SafeAreaView>
+      // </ScrollView>
   );
 };
 

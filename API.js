@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let APIKit = axios.create({
-  baseURL: 'http://192.168.43.44',
+  baseURL: 'http://192.168.1.6',
   timeout: 10000,
 });
 
