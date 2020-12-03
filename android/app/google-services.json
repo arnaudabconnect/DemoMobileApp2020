@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "179325949753",
+    "firebase_url": "https://bxlevent-77068.firebaseio.com",
+    "project_id": "bxlevent-77068",
+    "storage_bucket": "bxlevent-77068.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179325949753:android:55c43a8c108e1af6d43ae8",
+        "android_client_info": {
+          "package_name": "com.demomobileapp2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179325949753-6e4444td5sk9a0bq45vvrkmr9p4unect.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf7GQ0pbJfiVcZxqOQI_lsH8wJTclz2kE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179325949753-6e4444td5sk9a0bq45vvrkmr9p4unect.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

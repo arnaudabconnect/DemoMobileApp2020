@@ -51,7 +51,7 @@ export default ({ navigation }) => {
   //     password,
   //   }
   //   const data = createFormData(avatar, body);
-  //   fetch("http://192.168.1.59/api/register", {
+  //   fetch("http://192.168.43.44/api/register", {
   //     method: "POST",
   //     body: data
   //   })
@@ -77,7 +77,7 @@ export default ({ navigation }) => {
     }
     //const data = createFormData(avatar, body);
    //console.log(data["_parts"][0])
-    Axios.post("http://192.168.1.59/api/register",body)
+    Axios.post("http://192.168.43.44/api/register",body)
       .then(response => {
         console.log("upload succes", response);
         alert('all good');

@@ -25,10 +25,14 @@ export const AppContextProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [fcmtoken , setFcmtoken] = React.useState(null);
   React.useEffect(() => {
     AsyncStorage.getItem('user').then(userString => {
       setUser(JSON.parse(userString))
       AsyncStorage.getItem('token').then(token => setClientToken(token));     
+    })
+    AsyncStorage.getItem('FCM_token').then(FCM_token => {
+      setFcmtoken(FCM_token)
     })
   }, [])
   const login =  (email, password) => {
@@ -36,7 +40,8 @@ export const AppContextProvider = ({ children }) => {
     APIKit.post('/api/login', {
       email,
       password,
-      device_name: 'android'
+      device_name: 'android',
+      device_token: fcmtoken,
     }).then( response => {
       console.log(response.data)
         setClientToken(response.data.token);
